@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
 import { useSubtitle } from '../contexts/SubtitleContext';
 import { useVideo } from '../contexts/VideoContext';
+import { SubtitleFile } from '../models/SubtitleFile';
 import { sortByEpisode } from '../utils/sort';
 import './SubtitleManager.css';
-import { SubtitleFile } from '../models/SubtitleFile';
 import { Toast } from './Toast';
 
 export function SubtitleManager() {
@@ -12,6 +12,11 @@ export function SubtitleManager() {
     const [isDragOver, setIsDragOver] = useState(false);
 
     const handleSelectFiles = useCallback(async () => {
+        if (!('showOpenFilePicker' in window)) {
+            Toast.error('当前浏览器不支持 File System Access API');
+            return;
+        }
+
         const fileHandles = await window.showOpenFilePicker({
             multiple: true,
             types: [{
@@ -175,4 +180,4 @@ export function SubtitleManager() {
             </div>
         </div>
     );
-} 
+}

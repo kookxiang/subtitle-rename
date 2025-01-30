@@ -2,15 +2,20 @@ import { useCallback } from 'react';
 import { useDirectory } from '../contexts/DirectoryContext';
 import { useVideo } from '../contexts/VideoContext';
 import { VideoFile } from '../models/VideoFile';
-import './VideoManager.css';
 import { sortByEpisode } from '../utils/sort';
 import { Toast } from './Toast';
+import './VideoManager.css';
 
 export function VideoManager() {
     const { setFolder } = useDirectory();
     const { videos, setVideos } = useVideo();
 
     const handleSelectFolder = useCallback(() => {
+        if (!('showDirectoryPicker' in window)) {
+            Toast.error('当前浏览器不支持 File System Access API');
+            return;
+        }
+
         window.showDirectoryPicker().then(folder => {
             setFolder(folder);
             setVideos([]);
@@ -58,4 +63,4 @@ export function VideoManager() {
             </div>
         </div>
     );
-} 
+}
