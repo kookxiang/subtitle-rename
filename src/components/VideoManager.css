@@ -1,0 +1,55 @@
+.video-file-list {
+    flex: 1;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    padding-bottom: 16px;
+}
+
+.video-file-item {
+    display: flex;
+    line-height: 34px;
+    overflow: hidden;
+    border-radius: 4px;
+    background-color: #F3E5F5;
+    margin-bottom: 8px;
+}
+
+.video-episode {
+    font-family: monospace;
+    width: 42px;
+    height: 32px;
+    line-height: 32px;
+    color: #fff;
+    background-color: #9c27b0;
+    text-align: center;
+    appearance: none;
+    border: none;
+}
+
+.video-name {
+    flex: 1;
+    padding: 0 8px;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+} 
+
+.video-file-list:empty {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.video-file-list:empty::after {
+    content: '请选择视频文件夹';
+    font-size: 32px;
+    flex: 1;
+    padding: 32px;
+    border: 4px dashed #eee;
+    border-radius: 16px;
+    color: #ccc;
+    text-align: center;
+    align-content: center;
+}

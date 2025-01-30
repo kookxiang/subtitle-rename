@@ -1,0 +1,23 @@
+{
+  "name": "subtitle-rename",
+  "version": "1.0.0",
+  "author": "kookxiang",
+  "license": "MIT",
+  "description": "字幕文件重命名工具",
+  "scripts": {
+    "dev": "rspack serve",
+    "build": "rspack build"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@rspack/cli": "^0.5.8",
+    "@rspack/core": "^0.5.8",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/wicg-file-system-access": "^2023.10.5",
+    "typescript": "^5.0.0"
+  }
+}
