@@ -1,15 +1,14 @@
-import { sortByEpisode } from "../utils/sort";
 import { MediaFile } from "./MediaFile";
 import type { VideoFile } from "./VideoFile";
 
 export class SubtitleFile extends MediaFile {
     private static readonly SUBTITLE_EXTENSIONS = ['.srt', '.ass', '.ssa'];
-    
+
     public newBaseName: string;
 
     constructor(file: FileSystemFileHandle) {
         super(file);
-        const extensionMatch = file.name.match(/(?:\.(?:zh|sc|tc)[a-z-_]*)?\.[^.]+$/i);
+        const extensionMatch = file.name.match(/(?:\.(?:zh|ch|sc|tc)[a-z-_]*)?\.[^.]+$/i);
         this.extensionName = extensionMatch?.[0] ?? '';
         this.newBaseName = this.name.substring(0, this.name.length - this.extensionName.length);
     }
