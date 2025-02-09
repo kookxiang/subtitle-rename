@@ -22,9 +22,9 @@ export function SubtitleManager() {
             types: [{
                 description: '字幕文件',
                 accept: {
-                    'text/plain': ['.srt', '.ass', '.ssa']
-                }
-            }]
+                    'text/plain': ['.srt', '.ass', '.ssa'],
+                },
+            }],
         });
 
         for (const handle of fileHandles) {
@@ -99,6 +99,7 @@ export function SubtitleManager() {
 
     const handleDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
         if (event.nativeEvent.dataTransfer?.items?.[0]?.kind !== 'file') return;
+        if (!DataTransferItem.prototype.getAsFileSystemHandle) return;
         event.preventDefault();
         setIsDragOver(true);
     }, []);
@@ -124,7 +125,7 @@ export function SubtitleManager() {
                         Toast.error(`${fileHandle!.name} 不是合法的字幕文件`);
                     }
                 } else if (fileHandle?.kind === 'directory') {
-                    const fileHandles = await SubtitleFile.scanSubtitles(fileHandle as FileSystemDirectoryHandle)
+                    const fileHandles = await SubtitleFile.scanSubtitles(fileHandle as FileSystemDirectoryHandle);
                     for (const handle of fileHandles) {
                         addSubtitle(handle);
                     }
@@ -154,8 +155,9 @@ export function SubtitleManager() {
             </div>
             <div className="subtitle-file-list">
                 {subtitles.map((subtitle, index) => (
-                    <div key={subtitle.name} className='subtitle-file-item'>
-                        <input className="subtitle-episode"
+                    <div key={subtitle.name} className="subtitle-file-item">
+                        <input
+                            className="subtitle-episode"
                             pattern="\d+\.?\d*"
                             value={subtitle.episode}
                             onBlur={sortSubtitles}
