@@ -11,9 +11,15 @@ export function ActionBar() {
     const { subtitles, setSubtitles } = useSubtitle();
 
     const handleCopy = useCallback(async () => {
+        const permission = await folder!.requestPermission({ mode: 'readwrite' });
+        if (permission !== 'granted') {
+            Toast.error('目录读写权限被拒绝');
+            return;
+        }
+
         for (const subtitle of subtitles) {
             const newFileName = [subtitle.newBaseName, subtitle.extensionName.replace(/^\./, '')].join('.');
-            const newFileHandle = await folder!.getFileHandle(newFileName, {create: true});
+            const newFileHandle = await folder!.getFileHandle(newFileName, { create: true });
             const outputStream = await newFileHandle.createWritable();
             await outputStream.write(await subtitle.file.getFile());
             await outputStream.close();

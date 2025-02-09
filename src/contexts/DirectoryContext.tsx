@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useContext, useState } from 'react';
 
 interface DirectoryContextType {
     folder: FileSystemDirectoryHandle | null;
-    setFolder: (folder: FileSystemDirectoryHandle | null) => Promise<void>;
+    setFolder: (folder: FileSystemDirectoryHandle | null) => void;
 }
 
 const DirectoryContext = createContext<DirectoryContextType | undefined>(undefined);
@@ -10,18 +10,7 @@ const DirectoryContext = createContext<DirectoryContextType | undefined>(undefin
 export function DirectoryProvider({ children }: { children: React.ReactNode }) {
     const [folder, setFolderState] = useState<FileSystemDirectoryHandle | null>(null);
 
-    const setFolder = useCallback(async (newFolder: FileSystemDirectoryHandle | null) => {
-        if (newFolder) {
-            // 申请读写权限
-            const permission = await newFolder.requestPermission({
-                mode: 'readwrite'
-            });
-            
-            if (permission !== 'granted') {
-                alert('需要文件夹的读写权限才能继续操作');
-                throw new Error('no permission');
-            }
-        }
+    const setFolder = useCallback((newFolder: FileSystemDirectoryHandle | null) => {
         setFolderState(newFolder);
     }, [setFolderState]);
 
