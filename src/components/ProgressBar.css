@@ -1,0 +1,41 @@
+.progress-bar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.progress-bar-wrapper.visible {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.progress-bar-container {
+    display: flex;
+    height: 24px;
+    width: 75vw;
+    border-radius: 16px;
+    background-color: #ffffff;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.progress-bar-finished,
+.progress-bar-unfinished {
+    height: 100%;
+    border-radius: 16px;
+    transition: all 0.5s ease-in-out;
+}
+
+.progress-bar-finished {
+    background-color: #4caf50;
+}
